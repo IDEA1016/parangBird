@@ -1,12 +1,10 @@
-import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Home from "../routes/Home";
 import Auth from "../routes/Auth";
 import Profile from "../routes/Profile";
 import EditProfile from "../routes/EditProfile";
 
-const useRouter = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const useRouter = ({ isLoggedIn }) => {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -24,9 +22,4 @@ const useRouter = () => {
   return router;
 };
 
-const Router = () => {
-  const router = useRouter();
-  return <RouterProvider router={router} />;
-};
-
-export default Router;
+export default useRouter;
