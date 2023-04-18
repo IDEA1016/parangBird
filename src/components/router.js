@@ -4,7 +4,7 @@ import Auth from "../routes/Auth";
 import Profile from "../routes/Profile";
 import EditProfile from "../routes/EditProfile";
 
-const useRouter = ({ isLoggedIn }) => {
+const useRouter = (isLoggedIn) => {
   const router = createBrowserRouter([
     {
       path: "/",
