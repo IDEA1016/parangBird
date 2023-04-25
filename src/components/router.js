@@ -1,25 +1,37 @@
-import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "../routes/Home";
 import Auth from "../routes/Auth";
 import Profile from "../routes/Profile";
 import EditProfile from "../routes/EditProfile";
+import Root from "routes/Root";
 
 const useRouter = (isLoggedIn) => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: isLoggedIn ? <Home /> : <Auth />,
-    },
-    {
-      path: "/edit-profile",
-      element: <EditProfile />,
-    },
-    {
-      path: "/profile",
-      element: <Profile />,
+      element: isLoggedIn ? <Root /> : <Auth />,
+      children: [
+        {
+          path: "/home",
+          element: <Home />,
+        },
+        {
+          path: "/edit-profile",
+          element: <EditProfile />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+      ],
     },
   ]);
   return router;
 };
 
-export default useRouter;
+const Router = ({ isLoggedIn }) => {
+  const router = useRouter(isLoggedIn);
+  return <RouterProvider router={router} />;
+};
+
+export default Router;

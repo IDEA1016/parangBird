@@ -3,6 +3,9 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithPopup,
+  signOut,
 } from "firebase/auth";
 
 // firebase 환경변수 설정
@@ -20,9 +23,16 @@ const firebaseApp = initializeApp(firebaseConfig);
 export const authService = getAuth(firebaseApp);
 
 // firebase 인증 관련 함수
+//createUserCredentialseff
 export const _createUserWithEmailAndPassword = ({ email, password }) => {
   return createUserWithEmailAndPassword(authService, email, password);
 };
 export const _signInWithEmailAndPassword = ({ email, password }) => {
   return signInWithEmailAndPassword(authService, email, password);
+};
+export const _signInWithPopup = (provider) => {
+  return signInWithPopup(authService, provider);
+};
+export const _signOut = () => {
+  return signOut(authService);
 };

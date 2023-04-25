@@ -1,13 +1,27 @@
-import React, { useState } from "react";
-import { RouterProvider } from "react-router-dom";
-import useRouter from "components/router";
-import { authService } from "fbase";
+import React, { useEffect, useState } from "react";
+import { _onAuthStateChanged, authService } from "fbase";
+import Router from "./router";
 
 function App() {
+  const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
+
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+      setInit(true);
+    });
+  }, []);
+
   return (
     <>
-      <RouterProvider router={useRouter(isLoggedIn)} />
+      {init ? <Router isLoggedIn={isLoggedIn} /> : "Initializing"}
+      <footer>ParangBird</footer>
     </>
   );
 }
